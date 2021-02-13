@@ -20,7 +20,7 @@ deadline = pd.read_csv('test_data.csv')
 #     deadline_by_date = deadline.loc[deadline['Date'] == date_analysis[date_number]]
 #     return_count = deadline_by_date.count()
 #     deadline.loc[(deadline['Date'] == date_analysis[date_number]),'Date count']=str(return_count['Date'])
-# deadline = deadline.sort_values(by=['Date count', 'Date'], ascending=[False, True])
+# deadline = deadline.sort_values(by=['Date count', 'Date'], ascending=True)
 # print(deadline)
  
 # deadline.to_csv(index=False, path_or_buf="student_version.csv")
