@@ -22,7 +22,8 @@ deadline = pd.read_csv('test_data.csv')
 #     deadline.loc[(deadline['Date'] == date_analysis[date_number]),'Date count']=str(return_count['Date'])
 # deadline = deadline.sort_values(by=['Date count', 'Date'], ascending=[False, True])
 # print(deadline)
-
+ 
+# deadline.to_csv(index=False, path_or_buf="student_version.csv")
 
 # No user input - office version
 
@@ -37,4 +38,9 @@ for date_number in range(len(date_analysis)):
 deadline = deadline.sort_values(by=['Date count', 'Date'], ascending=False)
 print(deadline)
 
+# compression_opts = dict(method='zip',
+#                         archive_name='out.csv')  
+# deadline.to_csv('out.zip', index=False,
+#           compression=compression_opts)
  
+deadline.to_csv(index=False, path_or_buf="office_sorted.csv")
