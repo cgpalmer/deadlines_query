@@ -8,9 +8,17 @@
 <body>
 
     <p> Hello.</p>
+<!-- 
+    <p>Are you a student or staff? </p> -->
+    <p>Upload your deadline CSV</p>
+    
+    <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data".>
+        {{form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+    </form>
 
-    <p>Are you a student or staff? </p>
-
+<!-- 
     <select name="" id="">
         <option value="">Student</option>
         <option value="">Staff</option>
@@ -39,7 +47,7 @@
         <input type="checkbox" id="inputCourse4">
         <label for="inputCourse4">Course 4</label>
     </div>
-    
+     -->
     {% include 'includes/result.html' %}
     
 </body>
