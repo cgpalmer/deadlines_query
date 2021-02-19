@@ -70,8 +70,11 @@ def writing_result(f):
         deadline_by_date = deadline.loc[deadline['Date'] == date_analysis[date_number]]
         return_count = deadline_by_date.count()
         deadline.loc[(deadline['Date'] == date_analysis[date_number]),'Date_count']=str(return_count['Date'])
-    deadline = deadline.sort_values(by=['Date'], ascending=False)
- 
+
+    deadline['Date_count'] = deadline['Date_count'].str.replace('pending', "0")
+    deadline['Date_count'] = deadline['Date_count'].astype(int)
+    deadline = deadline.sort_values(by=['Date_count', 'Date'], ascending=[False, False])
+   
     deadline_table = deadline.to_html(index=False)
     text_file = open("templates/includes/result.html", "w")
     text_file.write(deadline_table)
