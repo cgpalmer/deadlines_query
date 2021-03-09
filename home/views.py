@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 import pandas as pd
-from .forms import UploadFileForm
+from .forms import UploadFileForm, EngagementForm
 import os.path
+import numpy as np
+import math
+import os
 # Create your views here.
 def index(request):
         # # Grouping the dates
@@ -79,3 +82,66 @@ def writing_result(f):
     text_file = open("templates/includes/result.html", "w")
     text_file.write(deadline_table)
     text_file.close()
+
+
+def engage_upload(request):
+    if request.method == 'POST':
+        form = EngagementForm(request.POST, request.FILES)
+        if form.is_valid():
+            f = request.FILES['file']
+            handle_uploaded_file(f)
+            writing_engage_result(f)
+            return redirect('engagement')
+    else:
+        form = EngagementForm()
+    return redirect('engagement')
+
+def writing_engage_result(f):
+    # upload_filename = f.split(".")
+    upload_filename = f
+    data = pd.read_csv(f"upload_folder/{f}")
+    if 'Lateness (H:M:S)' in data.columns:
+        data = data[['Email', 'Total Score']]
+    elif 'Institution' in data.columns:
+        data = data.iloc[:, [5, 6]] # change to index 6 and 7
+    else:
+        data = data.iloc[:, [2, 6]]
+    
+    data.columns = ['UUN', 'ATTENDED']
+    data['UUN'] = data['UUN'].str.replace('@ed.ac.uk','')
+    data['ATTENDED'].fillna('-1', inplace=True)
+    data['ATTENDED'] = data['ATTENDED'].astype(str)
+    data.loc[(data['ATTENDED'] == 'Needs Marking'), 'ATTENDED'] = '+'
+    data['ATTENDED'] = data['ATTENDED'].str.replace('-','-2')
+    data['ATTENDED'] = data['ATTENDED'].str.replace('+','2')
+    data['ATTENDED'] = data['ATTENDED'].astype(float)
+    data.loc[(data['ATTENDED'] > -1), 'ATTENDED'] = 'Y'
+    data.loc[(data['ATTENDED'] != 'Y'), 'ATTENDED'] = 'N'
+    data.insert(2, "DESCRIPTION", f"{upload_filename[0]}")
+    data.insert(3, "NOTES", "")
+    data.insert(1, "ORGANISER", "")
+    data.insert(1, "EVENT_DATE", "") # filename
+    data.insert(1, "EVENT_TYPE", "CRSWRK")
+    
+    data.to_csv(index=False, path_or_buf=f"sorted_files/{f}")
+    
+
+    print(data)
+
+def engagement(request):
+   
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            f = request.FILES['file']
+            handle_uploaded_file(f)
+
+    
+
+
+    form = EngagementForm()
+    context = {
+      
+        'form':form
+    }
+    return render(request, 'home/engagement.html', context,)
