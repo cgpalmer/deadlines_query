@@ -91,14 +91,20 @@ def engage_upload(request):
             f = request.FILES['file']
             handle_uploaded_file(f)
             writing_engage_result(f)
-            return redirect('engagement')
+            return redirect('download_ready')
     else:
         form = EngagementForm()
     return redirect('engagement')
 
 def writing_engage_result(f):
-    # upload_filename = f.split(".")
-    upload_filename = f
+    doc_name = f"upload_folder/{f}"
+    print(doc_name)
+    doc_name = doc_name.split("/")
+    print(doc_name)
+    doc_name = doc_name[1]
+    doc_name = doc_name.split(".")
+    print(doc_name)
+
     data = pd.read_csv(f"upload_folder/{f}")
     if 'Lateness (H:M:S)' in data.columns:
         data = data[['Email', 'Total Score']]
@@ -117,27 +123,20 @@ def writing_engage_result(f):
     data['ATTENDED'] = data['ATTENDED'].astype(float)
     data.loc[(data['ATTENDED'] > -1), 'ATTENDED'] = 'Y'
     data.loc[(data['ATTENDED'] != 'Y'), 'ATTENDED'] = 'N'
-    data.insert(2, "DESCRIPTION", f"{upload_filename[0]}")
+    data.insert(2, "DESCRIPTION", f"{doc_name[0]}")
     data.insert(3, "NOTES", "")
     data.insert(1, "ORGANISER", "")
     data.insert(1, "EVENT_DATE", "") # filename
     data.insert(1, "EVENT_TYPE", "CRSWRK")
     
     data.to_csv(index=False, path_or_buf=f"sorted_files/{f}")
-    
+    fetch_download = f"sorted_files/{f}"
 
     print(data)
+    return fetch_download
 
 def engagement(request):
-   
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            f = request.FILES['file']
-            handle_uploaded_file(f)
-
     
-
 
     form = EngagementForm()
     context = {
@@ -145,3 +144,13 @@ def engagement(request):
         'form':form
     }
     return render(request, 'home/engagement.html', context,)
+
+
+def download_ready(request):
+    for filename in os.listdir('sorted_files/'):
+        print(filename)
+        download = '/sorted_files/'+filename
+    context = {
+        'download': download
+    }
+    return render(request, 'home/download_ready.html', context)
