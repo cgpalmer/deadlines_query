@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    {{download}}
-    <a href="{{download}}" download>{{download}}</a>
-    <a href="sorted_files/FoAn A3.csv" download>Written</a>
+    {% load static %}
+
+    <a href="{% static '' %}{{download}}" download>Click to download your file.</a>
 </body>
 </html>

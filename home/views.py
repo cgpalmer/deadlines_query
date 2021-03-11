@@ -129,8 +129,8 @@ def writing_engage_result(f):
     data.insert(1, "EVENT_DATE", "") # filename
     data.insert(1, "EVENT_TYPE", "CRSWRK")
     
-    data.to_csv(index=False, path_or_buf=f"sorted_files/{f}")
-    fetch_download = f"sorted_files/{f}"
+    data.to_csv(index=False, path_or_buf=f"static/staticfiles/{f}")
+    fetch_download = f"static/staticfiles/{f}"
 
     print(data)
     return fetch_download
@@ -147,9 +147,9 @@ def engagement(request):
 
 
 def download_ready(request):
-    for filename in os.listdir('sorted_files/'):
+    for filename in os.listdir('static/staticfiles/'):
         print(filename)
-        download = '/sorted_files/'+filename
+        download =  f'staticfiles/{filename}'
     context = {
         'download': download
     }

@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    {% load static %}
 
     <p> Hello.</p>
     <a href="{% url 'engagement' %}">Engagement Tab</a>
@@ -21,7 +22,7 @@
 
     {% include 'includes/result.html' %}
 
-    <a href="/deadlines_query/sorted_files/FoAn_A3.csv" download>Download</a>
+    <a href="{% static 'staticfiles/AlgGeom_A3.csv' %}" download>Download</a>
     
 </body>
 </html>
