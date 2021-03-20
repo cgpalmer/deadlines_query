@@ -19,11 +19,11 @@ class School(models.Model):
     name = models.CharField(max_length=254, null=False, default="Unnamed school")
 
     def __str__(self):
-        return self.course_code
+        return self.name
 
 
 class Course(models.Model):
-   
+    school_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
     course_code = models.CharField(max_length=10)
     course_name = models.CharField(max_length=254, null=False, default="Unnamed course")
 

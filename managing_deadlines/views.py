@@ -32,15 +32,14 @@ def upload_csv(request):
                         item_name = row[6]
                         date = row[7]
                         new_date = date.replace("/", "-")
-    
-                        print(date)
                         time = row[8]
+                        print(time)
                         School.objects.create(name=school_name)
                         Course.objects.create(course_code=course_code, course_name=course_name)
                         Assessment.objects.create(
                             school_name=school_name, course_code=course_code, 
                             course_name=course_name, assessment_name=assessment_name, 
-                            item_name=item_name, deadline_date=new_date)
+                            item_name=item_name, deadline_date=new_date, deadline_time=time)
                 
             obj.activated = True
             obj.save()
@@ -53,3 +52,18 @@ def upload_csv(request):
 
     return render(request, 'managing_deadlines/uploading_csv.html', context)
 
+
+
+def query_deadlines(request):
+
+    school = School.objects.values('name').distinct()
+    course = Course.objects.values('course_name').distinct()
+    assessment = Assessment.objects.all()
+
+    context = {
+        'schools': school,
+        'courses': course,
+        'assessments': assessment
+    }
+
+    return render(request, 'managing_deadlines/query_timetable.html', context)

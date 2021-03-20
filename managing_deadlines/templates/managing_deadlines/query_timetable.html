@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p> Hello.</p>
+<!-- 
+    <p>Are you a student or staff? </p> -->
+    <p>Choose your courses</p>
+    
+    <select name="" id="">
+        {% for school in schools %}
+            <option value="">{{school.name}}</option>
+        {% endfor %}
+    </select>
+
+    <select name="" id="">
+        {% for course in courses %}
+            <option value="">{{course.course_name}}</option>
+        {% endfor %}
+    </select>
+
+    <select name="" id="">
+        {% for assessment in assessments %}
+            <option value="">{{assessment.assessment_name}}</option>
+        {% endfor %}
+    </select>
+  
+    
+</body>
+</html>
