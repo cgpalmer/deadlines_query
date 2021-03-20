@@ -31,10 +31,14 @@ class Course(models.Model):
             return self.course_code
 
 class Assessment(models.Model):
-  
+    school_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
+    course_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
+    course_code = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
     assessment_type = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
     assessment_name = models.CharField(max_length=254, null=False, default="Unnamed assessment name")
     item_name = models.CharField(max_length=254, null=False, default="Unnamed item name")
+    deadline_date = models.DateField(null=True)
+    deadline_time = models.TimeField(null=True)
 
     def __str__(self):
-        return self.course_code
+        return self.assessment_name

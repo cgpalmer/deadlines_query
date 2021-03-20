@@ -1,0 +1,33 @@
+Course School Name,Course Code,Course Name,Course Year,Delivery Occurrence,Assessment Name,Item Name,Due Date,Due Time
+School 1,1111,course a,2021,SEM 2,Quiz,1,2021-03-10,12:05:00
+School 1,1111,course a,2021,SEM 3,Quiz,2,2021-03-17,12:05:00
+School 1,1111,course a,2021,SEM 4,Quiz,3,2021-03-24,12:05:00
+School 1,1111,course a,2021,SEM 5,Quiz,4,2021-03-31,12:05:00
+School 2,1112,course b,2021,SEM 6,Quiz,1,2021-03-03,12:05:00
+School 2,1112,course b,2021,SEM 7,Quiz,2,2021-03-10,12:05:00
+School 2,1112,course b,2021,SEM 8,Written,1,2021-04-01,12:05:00
+School 2,1112,course b,2021,SEM 9,Written,2,2021-04-09,12:05:00
+School 3,1113,course c,2021,SEM 10,Written,1,2021-03-10,12:05:00
+School 3,1113,course c,2021,SEM 11,STACK,1,2021-03-19,12:05:00
+School 3,1113,course c,2021,SEM 12,STACK,2,2021-03-20,12:05:00
+School 3,1113,course c,2021,SEM 13,STACK,3,2021-03-21,12:05:00
+School 3,1113,course c,2021,SEM 14,STACK,4,2021-03-22,12:05:00
+School 3,1113,course c,2021,SEM 15,STACK,5,2021-03-23,12:05:00
+School 3,1113,course c,2021,SEM 16,STACK,6,2021-03-24,12:05:00
+School 4,1114,course d,2021,SEM 17,Gradescope,1,2021-02-25,12:05:00
+School 4,1114,course d,2021,SEM 18,Stack,1,2021-03-01,12:05:00
+School 4,1114,course d,2021,SEM 19,Written,1,2021-03-15,12:05:00
+School 4,1114,course d,2021,SEM 20,Written,2,2021-03-23,12:05:00
+School 5 ,1115,course e,2021,SEM 21,Written,1,29/02/2021,12:05:00
+School 5 ,1115,course e,2021,SEM 22,Homework,1,2021-03-04,17:05:00
+School 5 ,1115,course e,2021,SEM 23,Homework,2,2021-03-10,17:05:00
+School 5 ,1115,course e,2021,SEM 24,Homework,3,2021-03-23,17:05:00
+School 5 ,1115,course e,2021,SEM 25,Homework,4,2021-04-02,17:05:00
+School 6,1116,course f,2021,SEM 26,Homework,1,2021-03-03,12:05:00
+School 6,1116,course f,2021,SEM 27,Homework,2,2021-04-04,12:05:00
+School 6,1116,course f,2021,SEM 28,Quiz,1,2021-03-05,12:05:00
+School 6,1116,course f,2021,SEM 29,STACK,1,2021-04-06,16:05:00
+School 7,1117,course g,2021,SEM 30,STACK,1,2021-03-07,16:05:00
+School 7,1117,course g,2021,SEM 31,STACK,2,2021-03-15,16:05:00
+School 7,1117,course g,2021,SEM 32,STACK,3,2021-03-24,16:05:00
+School 7,1117,course g,2021,SEM 33,STACK,4,2021-04-01,16:05:00
