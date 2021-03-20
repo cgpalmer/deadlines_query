@@ -35,7 +35,7 @@ def upload_csv(request):
                         time = row[8]
                         print(time)
                         School.objects.create(name=school_name)
-                        Course.objects.create(course_code=course_code, course_name=course_name)
+                        Course.objects.create(course_code=course_code, course_name=course_name, school_name=school_name)
                         Assessment.objects.create(
                             school_name=school_name, course_code=course_code, 
                             course_name=course_name, assessment_name=assessment_name, 
@@ -57,7 +57,7 @@ def upload_csv(request):
 def query_deadlines(request):
 
     school = School.objects.values('name').distinct()
-    course = Course.objects.values('course_name').distinct()
+    course = Course.objects.all()
     assessment = Assessment.objects.all()
 
     context = {
