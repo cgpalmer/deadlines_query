@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'managing_deadlines'
 ]
 
 MIDDLEWARE = [
