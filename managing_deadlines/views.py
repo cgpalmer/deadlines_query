@@ -26,7 +26,7 @@ def upload_csv(request):
                       
                     
                         school_name = row[0]
-                        school_code = [1]
+                        school_code = row[1]
                         course_code = row[2]
                         course_name = row[3]
                         assessment_name = row[6]
@@ -59,7 +59,7 @@ def upload_csv(request):
 
 def query_deadlines(request):
 
-    school = School.objects.values('name').distinct()
+    school = School.objects.values('school_code').distinct()
     course = Course.objects.all()
     assessment = Assessment.objects.all()
 

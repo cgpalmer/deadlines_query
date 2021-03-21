@@ -15,24 +15,22 @@
     <p>Choose your courses</p>
     
     <select id="school_select_1" class="school_select" name="">
+               <option value="" selected disabled>Select a school</option>
         {% for school in schools %}
         <!-- Change the value to school coe once they're included -->
-            <option value="{{school.name}}">{{school.name}}</option>
+ 
+            <option value="{{school.school_code}}">{{school.school_code}}</option>
         {% endfor %}
     </select>
 
-    <select name="" id="">
-        <option value="" selected disabled>Select a school</option>
+    <select name="" id="course_select">
+        <option value="" selected disabled>Select a school first</option>
         {% for course in courses %}
-            <option class="hide" id="{{course.school_code}}/{{course.course_code}}" value="{{course.school_code}}/{{course.course_code}}">{{course.course_code}}/{{course.course_name}}</option>
+            <option class="hide {{course.school_code}} course_option" id="{{course.school_code}}/{{course.course_code}}" value="{{course.school_code}}/{{course.course_code}}">{{course.course_code}}/{{course.course_name}}</option>
         {% endfor %}
     </select>
 
-    <select name="" id="">
-        {% for assessment in assessments %}
-            <option value="">{{assessment.assessment_name}}</option>
-        {% endfor %}
-    </select>
+    
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="{% static 'js/managing_deadlines.js'%}"></script> 

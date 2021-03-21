@@ -3,9 +3,10 @@ console.log("Connected");
 
 
 $( ".school_select" ).change(function() {
+  $(".course_option").addClass('hide');
   console.log("changed");
   var value = $("#school_select_1").val();
   console.log(value);
-  var option_val = $("#course_school_name").val();
-  console.log(option_val);
+  $(`.${value}`).removeClass('hide');
 });
+
