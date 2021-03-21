@@ -28,7 +28,7 @@
         <select name="course_code" id="course_select">
             <option value="" selected disabled>Select a school first</option>
             {% for course in courses %}
-                <option class="hide {{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_code}}</option>
+                <option class="{{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_code}}</option>
             {% endfor %}
         </select>
         <button type="submit">Submit</button>

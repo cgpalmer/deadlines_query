@@ -35,9 +35,16 @@ def upload_csv(request):
                         new_date = date.replace("/", "-")
                         time = row[9]
                         print(time)
-                        School.objects.create(name=school_name, school_code=school_code)
-                        Course.objects.create(course_code=course_code, course_name=course_name, 
+                        try:
+                            school_query = School.objects.get(school_code=school_code)
+                        except School.DoesNotExist:
+                            School.objects.create(name=school_name, school_code=school_code)
+                        try:
+                            course_query = Course.objects.get(course_code=course_code)
+                        except Course.DoesNotExist:
+                            Course.objects.get_or_create(course_code=course_code, course_name=course_name, 
                                                 school_name=school_name, school_code=school_code)
+                   
                         Assessment.objects.create(
                             school_name=school_name, course_code=course_code, 
                             course_name=course_name, assessment_name=assessment_name, 
@@ -59,7 +66,7 @@ def upload_csv(request):
 
 def query_deadlines(request):
 
-    school = School.objects.values('school_code').distinct()
+    school = School.objects.all()
     course = Course.objects.all()
     assessment = Assessment.objects.all()
 
@@ -80,10 +87,14 @@ def query_timetable(request):
         print(school_code)
         course_code = request.POST.get('course_code')
         print(course_code)
+        assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
+  
+        
 
     context = {
         'school_code': school_code,
-        'course_code': course_code
+        'course_code': course_code,
+        'assessment': assessment
     }
  
     return render(request, 'managing_deadlines/results.html', context)
