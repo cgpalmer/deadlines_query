@@ -70,3 +70,20 @@ def query_deadlines(request):
     }
 
     return render(request, 'managing_deadlines/query_timetable.html', context)
+
+
+def query_timetable(request):
+    school_code = None
+    course_code = None
+    if request.method == 'POST':
+        school_code = request.POST.get('school_code')
+        print(school_code)
+        course_code = request.POST.get('course_code')
+        print(course_code)
+
+    context = {
+        'school_code': school_code,
+        'course_code': course_code
+    }
+ 
+    return render(request, 'managing_deadlines/results.html', context)
