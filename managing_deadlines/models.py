@@ -15,7 +15,7 @@ class Csv(models.Model):
 
 class School(models.Model):
   
-    school_code = models.CharField(max_length=10)
+    school_code = models.CharField(max_length=10, null=True)
     name = models.CharField(max_length=254, null=False, default="Unnamed school")
 
     def __str__(self):
@@ -24,6 +24,7 @@ class School(models.Model):
 
 class Course(models.Model):
     school_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
+    school_code = models.CharField(max_length=10, null=True)
     course_code = models.CharField(max_length=10)
     course_name = models.CharField(max_length=254, null=False, default="Unnamed course")
 
@@ -32,6 +33,7 @@ class Course(models.Model):
 
 class Assessment(models.Model):
     school_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
+    school_code = models.CharField(max_length=10, null=True)
     course_name = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
     course_code = models.CharField(max_length=254, null=False, default="Unnamed assessment type")
     assessment_type = models.CharField(max_length=254, null=False, default="Unnamed assessment type")

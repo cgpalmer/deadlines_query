@@ -24,7 +24,7 @@
     <select name="" id="">
         <option value="" selected disabled>Select a school</option>
         {% for course in courses %}
-            <option class="hide {{course.school_name}}" id="" value="{{course.school_name}}">{{course.course_code}}/{{course.course_name}}</option>
+            <option class="hide" id="{{course.school_code}}/{{course.course_code}}" value="{{course.school_code}}/{{course.course_code}}">{{course.course_code}}/{{course.course_name}}</option>
         {% endfor %}
     </select>
 

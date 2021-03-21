@@ -23,23 +23,26 @@ def upload_csv(request):
                     if i == 0:
                         pass
                     else:
-                        # row = "".join(row)
+                      
                     
                         school_name = row[0]
-                        course_code = row[1]
-                        course_name = row[2]
-                        assessment_name = row[5]
-                        item_name = row[6]
-                        date = row[7]
+                        school_code = [1]
+                        course_code = row[2]
+                        course_name = row[3]
+                        assessment_name = row[6]
+                        item_name = row[7]
+                        date = row[8]
                         new_date = date.replace("/", "-")
-                        time = row[8]
+                        time = row[9]
                         print(time)
-                        School.objects.create(name=school_name)
-                        Course.objects.create(course_code=course_code, course_name=course_name, school_name=school_name)
+                        School.objects.create(name=school_name, school_code=school_code)
+                        Course.objects.create(course_code=course_code, course_name=course_name, 
+                                                school_name=school_name, school_code=school_code)
                         Assessment.objects.create(
                             school_name=school_name, course_code=course_code, 
                             course_name=course_name, assessment_name=assessment_name, 
-                            item_name=item_name, deadline_date=new_date, deadline_time=time)
+                            item_name=item_name, deadline_date=new_date, deadline_time=time,
+                            school_code=school_code)
                 
             obj.activated = True
             obj.save()
