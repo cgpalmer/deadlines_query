@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <title>Document</title>
+</head>
+<body>
+
+    <p> Hello.</p>
+<!-- 
+    <p>Are you a student or staff? </p> -->
+    <p>Choose your courses</p>
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" name="number_of_courses">
+        <label for="number_of_courses">How many courses are you enrolled on?</label>
+        
+
+        <button type="submit">Submit</button>
+    </form>
+    <button class="add_button">Add</button>
+
+    <div id="test"></div>
+
+    
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{% static 'js/managing_deadlines.js'%}"></script> 
+<!-- https://stackoverflow.com/questions/62534144/pass-queryset-data-to-javascript-as-a-variable-template -->
+
+</body>
+</html>

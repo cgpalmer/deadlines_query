@@ -63,18 +63,18 @@ def upload_csv(request):
 
 
 
-def query_deadlines(request):
-
+def query_deadlines(request, number_of_courses):
+    number_of_courses = number_of_courses
     school = School.objects.all()
     course = Course.objects.all()
-    json_schools = serializers.serialize("json", School.objects.all())
-    json_course = serializers.serialize("json", Course.objects.all())
+    number_of_courses_array = []
+    for i in range(number_of_courses):
+        number_of_courses_array.append(i)
     
     context = {
         'schools': school,
         'courses': course,
-        'json_schools': json_schools,
-        'json_course': json_course       
+        'number_of_courses': number_of_courses_array  
     }
 
     return render(request, 'managing_deadlines/query_timetable.html', context)
@@ -97,3 +97,12 @@ def query_timetable(request):
     }
  
     return render(request, 'managing_deadlines/results.html', context)
+
+def number_of_courses(request):
+    number_of_courses = None
+    if request.method == 'POST':
+        number_of_courses = request.POST.get('number_of_courses')
+        print(number_of_courses)
+        return redirect('query_deadlines', number_of_courses=number_of_courses)
+    else: 
+        return render(request, 'managing_deadlines/number_of_courses.html')
