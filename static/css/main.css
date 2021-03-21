@@ -1,3 +1,9 @@
 .hide{
     display: none;
 }
+
+.icon-img {
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}

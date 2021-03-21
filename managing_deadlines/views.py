@@ -3,6 +3,7 @@ from .forms import CsvForm
 from .models import Csv, School, Assessment, Course
 import os
 import csv
+from django.core import serializers
 
 
 # Create your views here.
@@ -22,9 +23,7 @@ def upload_csv(request):
                 for i, row in enumerate(reader):
                     if i == 0:
                         pass
-                    else:
-                      
-                    
+                    else:                 
                         school_name = row[0]
                         school_code = row[1]
                         course_code = row[2]
@@ -68,12 +67,14 @@ def query_deadlines(request):
 
     school = School.objects.all()
     course = Course.objects.all()
-    assessment = Assessment.objects.all()
-
+    json_schools = serializers.serialize("json", School.objects.all())
+    json_course = serializers.serialize("json", Course.objects.all())
+    
     context = {
         'schools': school,
         'courses': course,
-        'assessments': assessment
+        'json_schools': json_schools,
+        'json_course': json_course       
     }
 
     return render(request, 'managing_deadlines/query_timetable.html', context)
@@ -84,9 +85,7 @@ def query_timetable(request):
     course_code = None
     if request.method == 'POST':
         school_code = request.POST.get('school_code')
-        print(school_code)
         course_code = request.POST.get('course_code')
-        print(course_code)
         assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
   
         

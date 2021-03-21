@@ -18,26 +18,60 @@
         {% csrf_token %}
         <select id="school_select_1" class="school_select" name="school_code">
             <option value="" selected disabled>Select a school</option>
-            {% for school in schools %}
-            <!-- Change the value to school coe once they're included -->
+            {% for school in schools %} -->
+            Change the value to school coe once they're included
     
-            <option value="{{school.school_code}}">{{school.school_code}}</option>
+            <option value="{{school.school_code}}">{{school.name}}</option>
             {% endfor %}
-        </select>
+        </select> 
+
 
         <select name="course_code" id="course_select">
             <option value="" selected disabled>Select a school first</option>
             {% for course in courses %}
-                <option class="{{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_code}}</option>
+                <option class="hide {{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_name}}</option>
             {% endfor %}
         </select>
+        
+        
+
         <button type="submit">Submit</button>
     </form>
-    
+    <button class="add_button">Add</button>
+
+    <div id="test"></div>
 
     
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="{% static 'js/managing_deadlines.js'%}"></script> 
+<!-- https://stackoverflow.com/questions/62534144/pass-queryset-data-to-javascript-as-a-variable-template -->
+    <script type="text/javascript">
+   // construct js objects
+   var json_schools = JSON.parse('{{ json_schools | safe }}')
+   console.log("This is json schools", json_schools)
+   var school_1 = json_schools[0]['fields']['school_code']
+   console.log(school_1)
+   $( ".add_button" ).click(function() {
+    $("#test").html(`
+    <select id="school_select_1" class="school_select" name="school_code">
+            <option value="" selected disabled>Select a school</option>
+            <!-- Change the value to school coe once they're included -->
+            <option value="${school_1}">${school_1}</option>
+        </select>
+    
+    <select name="course_code" id="course_select"> 
+        <option value="" selected disabled>Select a school first</option>
+            {% for course in courses %}
+                <option class="hide {{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_name}}</option>
+            {% endfor %}
+        </select>`
+        
+        
+        );
+
+});
+</script>
+
 </body>
 </html>
