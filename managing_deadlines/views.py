@@ -135,3 +135,14 @@ def number_of_courses(request):
         return redirect('query_deadlines', number_of_courses=number_of_courses)
     else: 
         return render(request, 'managing_deadlines/number_of_courses.html')
+
+def search_by_school(request):
+    if request.method == 'POST':
+        school_code = request.POST.get('assess_by_school')
+        by_school_query = Assessment.objects.filter(school_code=school_code).order_by('deadline_date')
+
+    context = {
+        'by_school_query': by_school_query,
+    }
+ 
+    return render(request, 'managing_deadlines/results.html', context)

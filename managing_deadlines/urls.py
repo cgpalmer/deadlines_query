@@ -7,4 +7,5 @@ urlpatterns = [
     path('course_amount/', views.number_of_courses, name='number_of_courses'),
     path('queries/<int:number_of_courses>/', views.query_deadlines, name='query_deadlines'),
     path('results/', views.query_timetable, name='query_timetable'),
+    path('school_query/', views.search_by_school, name='search_by_school'),
 ]
