@@ -74,7 +74,8 @@ def query_deadlines(request, number_of_courses):
     context = {
         'schools': school,
         'courses': course,
-        'number_of_courses': number_of_courses_array  
+        'number_of_courses': number_of_courses,
+        'number_of_courses_array': number_of_courses_array  
     }
 
     return render(request, 'managing_deadlines/query_timetable.html', context)
@@ -84,16 +85,24 @@ def query_timetable(request):
     school_code = None
     course_code = None
     if request.method == 'POST':
-        school_code = request.POST.get('school_code')
-        course_code = request.POST.get('course_code')
-        assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
-  
-        
+        number_of_courses = request.POST.get('number_of_courses')
+        print("below is the number of courses")
+        print(number_of_courses)
+        number_of_courses = int(number_of_courses)
+        list_of_queries = []
+        for i in range(number_of_courses):
+            school_code = request.POST.get(f'school_select_{i}')
+            print(school_code)
+            course_code = request.POST.get(f'course_select_{i}')
+            print(course_code)
+            assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code).order_by('deadline_date')
+            list_of_queries.append(assessment)
 
+    print(list_of_queries)
     context = {
         'school_code': school_code,
         'course_code': course_code,
-        'assessment': assessment
+        'list_of_queries': list_of_queries
     }
  
     return render(request, 'managing_deadlines/results.html', context)

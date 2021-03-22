@@ -11,7 +11,7 @@
 
     <p> Hello.</p>
 
- 
+
 <!-- 
     <p>Are you a student or staff? </p> -->
     <p>Choose your courses</p>
@@ -19,8 +19,8 @@
     <form action="{% url 'query_timetable' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {% for number in number_of_courses %}
-        <select id="school_select_{{number}}" class="school_select" name="school_code">
+        {% for number in number_of_courses_array %}
+        <select id="school_select_{{number}}" class="school_select" name="school_select_{{number}}">
             <option value="" selected disabled>Select a school</option>
             {% for school in schools %} -->
             <!-- Change the value to school code once they're included -->
@@ -33,13 +33,14 @@
         <select name="course_select_{{number}}" id="course_select">
             <option value="" selected disabled>Select a school first</option>
             {% for course in courses %}
-                <option class="hide {{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_name}}</option>
+                <option class=" {{course.school_code}} course_option" id="" value="{{course.course_code}}">{{course.course_name}}</option>
             {% endfor %}
         </select>
         <br>
         
         
         {% endfor %}
+        <input type="number" class="hide" name="number_of_courses" value="{{number_of_courses}}">
         <button type="submit">Submit</button>
     </form>
     <button class="add_button">Add</button>
