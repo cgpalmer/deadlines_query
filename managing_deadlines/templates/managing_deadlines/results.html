@@ -12,6 +12,11 @@
     <p> Hello. Here are your results.</p>
     
 
+    <button id="date_button">By date</button>
+    <button id="course_button">By Course</button>
+     <button id="both_button">By both</button>
+
+<div class="by_course hide">
     <p>By course</p>
     {% for assessment in list_of_queries %}
         {% regroup assessment by course_name as assessment %}
@@ -24,8 +29,9 @@
         <br>
  
     {% endfor %}
-    <hr>
-
+    </div>
+   
+<div class="by_date hide">
     <p>By date</p>
       {% for assessment in list_of_queries_by_date %}
         
@@ -38,6 +44,7 @@
         <br>
  
     {% endfor %}
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="{% static 'js/managing_deadlines.js'%}"></script> 
 </body>

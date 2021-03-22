@@ -100,11 +100,22 @@ def query_timetable(request):
             list_of_queries.append(assessment)
             for assess in assessment:
                 print(assess.deadline_date)
-                list_of_date_from_query.append(assess.deadline_date)
-    print(list_of_queries)
+                if assess.deadline_date in list_of_date_from_query:
+                    pass
+                else:
+                    list_of_date_from_query.append(assess.deadline_date)
+
+
+    
+    print(list_of_date_from_query)
+    list_of_date_from_query.sort()
+    print(list_of_date_from_query)
+
     list_of_queries_by_date = []
+
     for i in range(len(list_of_date_from_query)):
         deadline_date = list_of_date_from_query[i]
+    
         assessment_by_date = Assessment.objects.filter(deadline_date=deadline_date)
         list_of_queries_by_date.append(assessment_by_date)
     context = {
