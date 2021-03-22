@@ -11,7 +11,7 @@
 
     <p> Hello. Here are your results.</p>
     
-<!-- 
+
     <p>By course</p>
     {% for assessment in list_of_queries %}
         {% regroup assessment by course_name as assessment %}
@@ -23,11 +23,11 @@
         {% endfor %}
         <br>
  
-    {% endfor %} -->
-
+    {% endfor %}
+    <hr>
 
     <p>By date</p>
-      {% for assessment in list_of_queries %}
+      {% for assessment in list_of_queries_by_date %}
         
         {% for ass in assessment %}
            

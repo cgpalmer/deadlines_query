@@ -90,19 +90,28 @@ def query_timetable(request):
         print(number_of_courses)
         number_of_courses = int(number_of_courses)
         list_of_queries = []
+        list_of_date_from_query = []
         for i in range(number_of_courses):
             school_code = request.POST.get(f'school_select_{i}')
             print(school_code)
             course_code = request.POST.get(f'course_select_{i}')
             print(course_code)
-            assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code).order_by('deadline_date')
+            assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
             list_of_queries.append(assessment)
-
+            for assess in assessment:
+                print(assess.deadline_date)
+                list_of_date_from_query.append(assess.deadline_date)
     print(list_of_queries)
+    list_of_queries_by_date = []
+    for i in range(len(list_of_date_from_query)):
+        deadline_date = list_of_date_from_query[i]
+        assessment_by_date = Assessment.objects.filter(deadline_date=deadline_date)
+        list_of_queries_by_date.append(assessment_by_date)
     context = {
         'school_code': school_code,
         'course_code': course_code,
-        'list_of_queries': list_of_queries
+        'list_of_queries': list_of_queries,
+        'list_of_queries_by_date': list_of_queries_by_date
     }
  
     return render(request, 'managing_deadlines/results.html', context)
