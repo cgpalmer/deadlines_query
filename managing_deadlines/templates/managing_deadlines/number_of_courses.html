@@ -22,9 +22,20 @@
 
         <button type="submit">Submit</button>
     </form>
-    <button class="add_button">Add</button>
+ 
 
-    <div id="test"></div>
+     <form action="{% url 'search_by_school' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select id="school_select_{{number}}" class="school_select" name="assess_by_school">
+            <option value="" selected disabled>Select a school</option>
+            {% for school in schools %} -->
+            <!-- Change the value to school code once they're included -->
+    
+            <option value="{{school.school_code}}">{{school.name}}</option>
+            {% endfor %}
+        </select> 
+        <button type="submit">Submit</button>
+    </form>
 
     
 

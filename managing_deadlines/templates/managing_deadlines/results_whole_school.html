@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <title>Document</title>
+</head>
+<body>
+
+    <p> Hello. Here are your results.</p>
+
+{% regroup by_school_query by deadline_date as assessment_list %}
+{% for deadline_date in assessment_list %}
+{{ deadline_date.grouper }}
+{% for ass in deadline_date.list %}
+     <p>{{ass.course_code}}/{{ass.course_name}}: {{ass.assessment_name}} {{ass.item_name}} - {{ass.deadline_date}} at {{ass.deadline_time}}</p>
+{% endfor %}
+{% endfor %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{% static 'js/managing_deadlines.js'%}"></script> 
+</body>
+</html>

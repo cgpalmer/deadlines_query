@@ -33,15 +33,16 @@
    
 <div class="by_date hide">
     <p>By date</p>
-      {% for assessment in list_of_queries_by_date %}
+      {% for queries_by_date in list_of_queries_by_date %}
         
-        {% for ass in assessment %}
-           
-          
+        {% regroup queries_by_date by deadline_date as assessment_list %}
+        {% for deadline_date in assessment_list %}
+        {{ deadline_date.grouper }}
+        {% for ass in deadline_date.list %}
             <p>{{ass.course_code}}/{{ass.course_name}}: {{ass.assessment_name}} {{ass.item_name}} - {{ass.deadline_date}} at {{ass.deadline_time}}</p>
-          
         {% endfor %}
         <br>
+        {% endfor %}
  
     {% endfor %}
 </div>
