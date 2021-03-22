@@ -4,6 +4,7 @@ from .models import Csv, School, Assessment, Course
 import os
 import csv
 from django.core import serializers
+from ics import Calendar, Event   
 
 
 # Create your views here.
@@ -48,8 +49,7 @@ def upload_csv(request):
                             school_name=school_name, course_code=course_code, 
                             course_name=course_name, assessment_name=assessment_name, 
                             item_name=item_name, deadline_date=new_date, deadline_time=time,
-                            school_code=school_code)
-                
+                            school_code=school_code)               
             obj.activated = True
             obj.save()
         return redirect(reverse('home'))
@@ -98,7 +98,10 @@ def query_timetable(request):
             print(course_code)
             assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
             list_of_queries.append(assessment)
+            
+            
             for assess in assessment:
+           
                 print(assess.deadline_date)
                 if assess.deadline_date in list_of_date_from_query:
                     pass
@@ -106,24 +109,36 @@ def query_timetable(request):
                     list_of_date_from_query.append(assess.deadline_date)
 
 
-    
-    print(list_of_date_from_query)
-    list_of_date_from_query.sort()
-    print(list_of_date_from_query)
+        c = Calendar()
+        e = Event()
+        for query in list_of_queries:
+            for assessment in query:
+                e.name = f'{assessment.assessment_name} {assessment.item_name}'
+                e.begin = f'{assessment.date} {assessment.time}'
+                c.events.add(e)
+        c.events
+        # [<Event 'My cool event' begin:2014-01-01 00:00:00 end:2014-01-01 00:00:01>]
+        with open('my deadlines.ics', 'w') as my_file:
+             my_file.writelines(c)
+        print(list_of_date_from_query)
+        list_of_date_from_query.sort()
+        print(list_of_date_from_query)
 
-    list_of_queries_by_date = []
 
-    for i in range(len(list_of_date_from_query)):
-        deadline_date = list_of_date_from_query[i]
-    
-        assessment_by_date = Assessment.objects.filter(deadline_date=deadline_date)
-        list_of_queries_by_date.append(assessment_by_date)
-    context = {
-        'school_code': school_code,
-        'course_code': course_code,
-        'list_of_queries': list_of_queries,
-        'list_of_queries_by_date': list_of_queries_by_date
-    }
+        # By date
+        list_of_queries_by_date = []
+
+        for i in range(len(list_of_date_from_query)):
+            deadline_date = list_of_date_from_query[i]
+        
+            assessment_by_date = Assessment.objects.filter(deadline_date=deadline_date)
+            list_of_queries_by_date.append(assessment_by_date)
+        context = {
+            'school_code': school_code,
+            'course_code': course_code,
+            'list_of_queries': list_of_queries,
+            'list_of_queries_by_date': list_of_queries_by_date
+        }
  
     return render(request, 'managing_deadlines/results.html', context)
 
