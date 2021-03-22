@@ -91,6 +91,14 @@ def query_timetable(request):
         number_of_courses = int(number_of_courses)
         list_of_queries = []
         list_of_date_from_query = []
+        
+        
+        list_of_course_codes = []
+        list_of_assessment_name = []
+        list_of_item_name = []
+        list_of_deadline_dates = []
+        list_of_deadline_times = []
+
         for i in range(number_of_courses):
             school_code = request.POST.get(f'school_select_{i}')
             print(school_code)
@@ -98,25 +106,34 @@ def query_timetable(request):
             print(course_code)
             assessment = Assessment.objects.filter(school_code=school_code, course_code=course_code)
             list_of_queries.append(assessment)
+          
             
             
             for assess in assessment:
-           
-                print(assess.deadline_date)
+                list_of_course_codes.append(assess.course_code)
+                list_of_assessment_name.append(assess.assessment_name)
+                list_of_item_name.append(assess.item_name)
+                list_of_deadline_dates.append(assess.deadline_date)
+                list_of_deadline_times.append(assess.deadline_time)
                 if assess.deadline_date in list_of_date_from_query:
                     pass
                 else:
                     list_of_date_from_query.append(assess.deadline_date)
+            
+                
 
-
+        
         c = Calendar()
-        e = Event()
-        for query in list_of_queries:
-            for assessment in query:
-                e.name = f'{assessment.assessment_name} {assessment.item_name}'
-                e.begin = f'{assessment.date} {assessment.time}'
-                c.events.add(e)
-        c.events
+        print(len(list_of_course_codes))
+        for item in range(len(list_of_course_codes)):
+            print("this is the item loop")
+            print(item)
+            e = Event()
+            e.name = f'{list_of_course_codes[item]} - {list_of_assessment_name[item]} {list_of_item_name[item]}'
+            e.begin = f'{list_of_deadline_dates[item]} {list_of_deadline_times[item]}'
+            c.events.add(e)
+            
+            c.events
         # [<Event 'My cool event' begin:2014-01-01 00:00:00 end:2014-01-01 00:00:01>]
         with open('my deadlines.ics', 'w') as my_file:
              my_file.writelines(c)
